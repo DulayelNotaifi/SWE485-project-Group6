@@ -16,22 +16,23 @@ def do_assignment(cost_matrix):
     assignedAgentsForForwardChecking = [0] * num_tasks  
     # Ex: if worker 1 is assigend then assignedAgentsForForwardChecking[0] will be 1
     
-    # Initializing assignments with -1
-    assignment = [-1] * num_tasks # task indix will contain the worker assigned to it
+    # Initialize assignments with -1, indicating that no worker is initially assigned to each task. 
+    # The index represents each task, and the value will be updated to the index of the worker assigned to that task.
+    assignment = [-1] * num_tasks 
     # Ex: if task 1 is assigend to worker 2 then assignment[0] will be 2 
 
     for task in range(num_tasks):
         min_cost = float('inf') # initially infinity value
-        assigned_worker = -1 # initially no worker is assigend 
+        assigned_worker = -1 # Initially, set to -1 to indicate that no worker has been assigned to the current task.
 
         for worker in range(num_tasks):
-            #     ckeck if the worker is already assigned     and    the cost is less
+           # Check if the worker is not already assigned (0) and if the cost for this worker and task is the lowest seen so far.
             if assignedAgentsForForwardChecking[worker] == 0  and cost_matrix[task][worker] < min_cost:
-                min_cost = cost_matrix[task][worker] # update minumim cost value
-                assigned_worker = worker  # update the worker to the worker with the cost value
+                min_cost = cost_matrix[task][worker] # Update min_cost with the lowest cost found for assigning this task.
+                assigned_worker = worker  # Update assigned_worker to the current worker who offers the lowest cost for this task.
 
-        assignment[task] = assigned_worker # assigene the worker for the task
-        assignedAgentsForForwardChecking[assigned_worker] = 1  # to indicate that the worker is assigend for the next iterations
+        assignment[task] = assigned_worker # Assign the task to the worker with the lowest cost for this task.
+        assignedAgentsForForwardChecking[assigned_worker] = 1  # Mark the worker as assigned.
 
     return assignment
 
