@@ -11,6 +11,7 @@ def do_assignment(cost_matrix):
     Returns:
     - assignment: List representing the assignment of tasks to workers.
     """
+    num_tasks = len(cost_matrix)
     # Initializing assignedAgentsForForwardChecking with 0
     assignedAgentsForForwardChecking = [0] * num_tasks
     
@@ -18,7 +19,6 @@ def do_assignment(cost_matrix):
     assignment = [-1] * num_tasks
 
     # Dummy solution (replace this with the actual implementation)
-    num_tasks = len(cost_matrix)
     #assignment = [i % len(cost_matrix[0]) for i in range(num_tasks)]
     return assignment
 
