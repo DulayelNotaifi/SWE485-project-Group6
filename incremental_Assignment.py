@@ -12,23 +12,25 @@ def do_assignment(cost_matrix):
     - assignment: List representing the assignment of tasks to workers.
     """
     num_tasks = len(cost_matrix)
-    # Initializing assignedAgentsForForwardChecking with 0
-    assignedAgentsForForwardChecking = [0] * num_tasks
+    # Initialize assignedAgentsForForwardChecking with 0 to track the assignment status of workers. 1 indicates assigned, 0 indicates unassigned.
+    assignedAgentsForForwardChecking = [0] * num_tasks  
+    # Ex: if worker 1 is assigend then assignedAgentsForForwardChecking[0] will be 1
     
     # Initializing assignments with -1
-    assignment = [-1] * num_tasks
+    assignment = [-1] * num_tasks # task indix will contain the worker assigned to it
+    # Ex: if task 1 is assigend to worker 2 then assignment[0] will be 2 
 
     for task in range(num_tasks):
-        min_cost = float('inf') # infinity value
-        assigned_worker = -1
+        min_cost = float('inf') # initially infinity value
+        assigned_worker = -1 # initially no worker is assigend 
 
         for worker in range(num_tasks):
             #     ckeck if the worker is already assigned     and    the cost is less
             if assignedAgentsForForwardChecking[worker] == 0  and cost_matrix[task][worker] < min_cost:
-                min_cost = cost_matrix[task][worker]
-                assigned_worker = worker
+                min_cost = cost_matrix[task][worker] # update minumim cost value
+                assigned_worker = worker  # update the worker to the worker with the cost value
 
-        assignment[task] = assigned_worker
+        assignment[task] = assigned_worker # assigene the worker for the task
         assignedAgentsForForwardChecking[assigned_worker] = 1  # to indicate that the worker is assigend for the next iterations
 
     return assignment
