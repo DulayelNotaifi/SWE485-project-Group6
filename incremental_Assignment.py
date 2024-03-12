@@ -11,8 +11,8 @@ def do_assignment(cost_matrix):
     Returns:
     - assignment: List representing the assignment of tasks to workers.
     """
-    # Initializing assignedTasksForForwardChecking with 0
-    assignedTasksForForwardChecking = [0] * num_tasks
+    # Initializing assignedAgentsForForwardChecking with 0
+    assignedAgentsForForwardChecking = [0] * num_tasks
     
     # Initializing assignments with -1
     assignment = [-1] * num_tasks
