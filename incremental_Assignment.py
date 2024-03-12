@@ -18,8 +18,19 @@ def do_assignment(cost_matrix):
     # Initializing assignments with -1
     assignment = [-1] * num_tasks
 
-    # Dummy solution (replace this with the actual implementation)
-    #assignment = [i % len(cost_matrix[0]) for i in range(num_tasks)]
+    for task in range(num_tasks):
+        min_cost = float('inf') # infinity value
+        assigned_worker = -1
+
+        for worker in range(num_tasks):
+            #     ckeck if the worker is already assigned     and    the cost is less
+            if assignedAgentsForForwardChecking[worker] == 0  and cost_matrix[task][worker] < min_cost:
+                min_cost = cost_matrix[task][worker]
+                assigned_worker = worker
+
+        assignment[task] = assigned_worker
+        assignedAgentsForForwardChecking[assigned_worker] = 1  # to indicate that the worker is assigend for the next iterations
+
     return assignment
 
 def generate_random_cost_matrix(n):

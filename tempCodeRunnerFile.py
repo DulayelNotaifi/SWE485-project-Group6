@@ -3,18 +3,34 @@ import time
 def greedy_forward_checking_assignment(cost_matrix):
     """
     Implements a greedy algorithm with forward checking for assignment problems.
-
+    
     Parameters:
     - cost_matrix: 2D matrix representing the cost of assigning tasks to workers.
 
     Returns:
     - assignment: List representing the assignment of tasks to workers.
     """
-    # Placeholder for the implementation
 
-    # Dummy solution (replace this with the actual implementation)
     num_tasks = len(cost_matrix)
-    assignment = [i % len(cost_matrix[0]) for i in range(num_tasks)]
+    # Initializing assignedAgentsForForwardChecking with 0
+    assignedAgentsForForwardChecking = [0] * num_tasks
+    
+    # Initializing assignments with -1
+    assignment = [-1] * num_tasks
+
+    for task in range(num_tasks):
+        min_cost = float('inf') # infinity value
+        assigned_worker = -1
+
+        for worker in range(num_tasks):
+            #     ckeck if the worker is already assigned     and    the cost is less
+            if assignedAgentsForForwardChecking[worker] == 0  and cost_matrix[task][worker] < min_cost:
+                min_cost = cost_matrix[task][worker]
+                assigned_worker = worker
+
+        assignment[task] = assigned_worker
+        assignedAgentsForForwardChecking[assigned_worker] = 1  # to indicate that the worker is assigend for the next iterations
+
     return assignment
 
 def print_matrix(matrix):
