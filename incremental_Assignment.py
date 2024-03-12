@@ -11,10 +11,15 @@ def do_assignment(cost_matrix):
     Returns:
     - assignment: List representing the assignment of tasks to workers.
     """
+    # Initializing assignedTasksForForwardChecking with 0
+    assignedTasksForForwardChecking = [0] * num_tasks
+    
+    # Initializing assignments with -1
+    assignment = [-1] * num_tasks
 
     # Dummy solution (replace this with the actual implementation)
     num_tasks = len(cost_matrix)
-    assignment = [i % len(cost_matrix[0]) for i in range(num_tasks)]
+    #assignment = [i % len(cost_matrix[0]) for i in range(num_tasks)]
     return assignment
 
 def generate_random_cost_matrix(n):
