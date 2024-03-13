@@ -14,12 +14,12 @@ def do_assignment(cost_matrix):
     num_tasks = len(cost_matrix)
     # Initialize assignedAgentsForForwardChecking with 0 to track the assignment status of workers. 1 indicates assigned, 0 indicates unassigned.
     assignedAgentsForForwardChecking = [0] * num_tasks  
-    # Ex: if worker 1 is assigend then assignedAgentsForForwardChecking[0] will be 1
+    # Ex: if worker 1 is assigned then assignedAgentsForForwardChecking[0] will be 1
     
     # Initialize assignments with -1, indicating that no worker is initially assigned to each task. 
     # The index represents each task, and the value will be updated to the index of the worker assigned to that task.
     assignment = [-1] * num_tasks 
-    # Ex: if task 1 is assigend to worker 2 then assignment[0] will be 2 
+    # Ex: if task 1 is assigned to worker 2 then assignment[0] will be 2 
 
     for task in range(num_tasks):
         min_cost = float('inf') # initially infinity value
@@ -53,8 +53,12 @@ def print_matrix(matrix):
         print(row)
 
 def print_assignment_description(assignment):
+    total_cost = 0
     for task, worker in enumerate(assignment):
-        print(f"Task {task + 1} is assigned to Worker {worker + 1}")
+        cost = cost_matrix[task][worker]  # Get the cost of assigning this task to this worker
+        total_cost += cost  # Add the cost to the total cost
+        print(f"Task {task + 1} is assigned to Worker {worker + 1} (Cost: {cost})")
+    print("Total cost:", total_cost)
 
 # Ask the user for the matrix size and the number of instances
 n = int(input("Enter the size of the matrix (n): "))
