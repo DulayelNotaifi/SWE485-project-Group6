@@ -10,21 +10,20 @@ def generateInitialSolution(n):
 
 def calculateCost(solution, c):
     cost = 0
-    for task, agent in enumerate(solution):
-        cost += c[task][agent]
+    for task, worker in enumerate(solution):
+        cost += c[task][worker]
     return cost
 
 def swapTasks(solution, n):
-    # Creates a neighboring solution by swapping the assignments of two randomly chosen agents
+    # Creates a neighboring solution by swapping the assignments of two randomly chosen workers
     new_solution = solution.copy()
-    agent1, agent2 = random.sample(range(n), 2)
-    # Swapping tasks between the two agents
-    new_solution[agent1], new_solution[agent2] = new_solution[agent2], new_solution[agent1]
+    worker1, worker2 = random.sample(range(n), 2)
+    # Swapping tasks between the two workers
+    new_solution[worker1], new_solution[worker2] = new_solution[worker2], new_solution[worker1]
     return new_solution
 
-def simulatedAnnealing(c, n, initial_temp, cooling_rate, min_temp, max_iter, nReheat):
-    start_time = time.time()  # Start time
-    
+def simulatedAnnealing(c, initial_temp, cooling_rate, min_temp, max_iter, nReheat):
+    n = len(c) # n workers with n tasks (n*n)
     current_solution = generateInitialSolution(n)
     current_cost = calculateCost(current_solution, c)
     temp = initial_temp
@@ -51,9 +50,17 @@ def simulatedAnnealing(c, n, initial_temp, cooling_rate, min_temp, max_iter, nRe
         temp = initial_temp  # Reheat by resetting the temperature
         reheats += 1
         
-    end_time = time.time()  # End time
+
     
-    return best_solution, best_cost, end_time - start_time
+    return best_solution, best_cost
+
+
+def printAssignmentResult(best_solution, c):
+    print("\nTask assignment:")
+    for task, worker in enumerate(best_solution):
+        print(f"Task {task+1} is assigned to Worker {worker+1} (Cost: {c[task][worker]})")
+    print("Total cost:", calculateCost(best_solution, c))
+
 
 # Parameters for the SA algorithm
 initial_temp = 1000
@@ -62,30 +69,22 @@ min_temp = 1
 max_iter = 10000
 nReheat = 5  # Number of times to reheat
 
-# COULD BE REPLACED LATER
-# Example cost matrix for assigning tasks to agents
-# Assume c[i][j] is the cost of assigning task i to agent j
+
+# Assume c[i][j] is the cost of assigning task i to worker (agent) j
 c = [
-    [40, 10, 12],  # Costs of assigning task 1 to agents 1, 2, and 3 respectively
-    [25, 30, 7],   # Costs of assigning each agent to task 2
-    [22, 6, 40]    # Costs of assigning each agent to task 3
+    [40, 10, 12],  # Costs of assigning task 1 to workers 1, 2, and 3 respectively
+    [25, 30, 7],   # Costs of assigning each worker to task 2
+    [22, 6, 40]    # Costs of assigning each worker to task 3
 ]
 
 
+# Start the computational time
+start_time = time.time()
 
-n = len(c)  # n agents with n tasks (n*n)
+best_solution, best_cost = simulatedAnnealing(c, initial_temp, cooling_rate, min_temp, max_iter, nReheat)
 
-best_solution, best_cost, computation_time = simulatedAnnealing(c, n, initial_temp, cooling_rate, min_temp, max_iter, nReheat)
 
-print("Best solution:", best_solution)
-print("Best cost:", best_cost)
-print("Computation time (seconds):", computation_time)
+# Print the result and computational time
+printAssignmentResult(best_solution, c)
+print("Computational time:", time.time() - start_time, "seconds")
 
-''' 
-Best solution output example:
-[1, 2, 0]
-Task 0 (the first task) is assigned to Agent 1 (second agent), at a cost of c[0][1] which is 10.
-Task 1 (the second task) is assigned to Agent 2 (third agent), at a cost of c[1][2] which is 7.
-Task 2 (the third task) is assigned to Agent 0 (first agent), at a cost of c[2][0] which is 22.
-
-'''
