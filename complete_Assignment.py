@@ -11,7 +11,7 @@ def generateInitialSolution(n):
     - n (int): Number of workers.
 
     Returns:
-    - solution (list): A random permutation of workers representing initial task assignments.
+    - solution (list): A 1D list representing a random permutation of workers, which represents initial task assignments.
     """
     # Generates a random permutation of workers representing initial task assignments
     solution = list(range(n))
@@ -24,8 +24,8 @@ def calculateCost(solution, c):
     Calculates the total cost of a given solution.
 
     Parameters:
-    - solution (list): Task assignment to workers.
-    - c (list): Cost matrix representing the cost of assigning each task to each worker.
+    - solution (list): A 1D list representing the task assignment to workers.
+    - c (list): A 2D matrix representing the cost of assigning each task to each worker.
 
     Returns:
     - cost (int): Total cost of the solution.
