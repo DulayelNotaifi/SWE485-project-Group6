@@ -69,7 +69,7 @@ def simulatedAnnealing(c, initial_temp, cooling_rate, min_temp, max_iter, nRehea
     - nReheat (int): Number of times to reheat.
 
     Returns:
-   - best_solution (list): The best solution found by the algorithm. 
+   - best_solution (list): A 1D list representing the best solution found by the algorithm. 
    - best_cost (float): The corresponding cost of the best solution. 
     """
     n = len(c) # n workers with n tasks (n*n)
@@ -106,8 +106,8 @@ def printAssignmentResult(best_solution, c):
     Prints the final task assignment result.
 
     Parameters:
-    - best_solution (list): Best task assignment to workers.
-    - c (list): Cost matrix representing the cost of assigning each task to each worker.
+    - best_solution (list): A 1D list representing the best task assignment found to workers.
+    - c (list):  A 2D matrix representing the cost of assigning each task to each worker.
     """
     print("\nTask assignment:")
     for task, worker in enumerate(best_solution):
@@ -138,3 +138,5 @@ best_solution, best_cost = simulatedAnnealing(c, initial_temp, cooling_rate, min
 # Print the result and computational time
 printAssignmentResult(best_solution, c)
 print("Computational time:", time.time() - start_time, "seconds")
+
+
